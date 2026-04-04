@@ -1,0 +1,6 @@
+{{ with secret "secret/data/myapp/creds" }}
+{
+  "username": "{{ .Data.data.username }}",
+  "password": "{{ .Data.data.password }}"
+}
+{{ end }}

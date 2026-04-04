@@ -1,0 +1,9 @@
+---
+username: admin
+password: admin
+port: 22
+connection_options:
+  napalm:
+    extras:
+      optional_args:
+        transport: ssh

@@ -1,0 +1,13 @@
+---
+r1:
+  hostname: 10.0.0.1
+  platform: cisco_ios
+  groups:
+    - lab
+    - cisco
+nr1:
+  hostname: 10.0.0.2
+  platform: cisco_nxos
+  groups:
+    - lab
+    - nxos

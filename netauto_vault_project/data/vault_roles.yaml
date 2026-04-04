@@ -1,0 +1,22 @@
+default:
+  secret_path: network-automation/service-account
+  username_field: username
+  password_field: password
+
+platforms:
+  cisco_ios:
+    secret_path: network-automation/cisco/shared
+    username_field: username
+    password_field: password
+  cisco_nxos:
+    secret_path: network-automation/cisco/shared
+    username_field: username
+    password_field: password
+  arista_eos:
+    secret_path: network-automation/arista/shared
+    username_field: username
+    password_field: password
+  juniper_junos:
+    secret_path: network-automation/juniper/shared
+    username_field: username
+    password_field: password

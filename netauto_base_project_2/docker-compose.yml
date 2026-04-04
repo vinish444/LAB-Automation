@@ -1,0 +1,38 @@
+version: '3.9'
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - REDIS_URL=redis://redis:6379/0
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    command: celery -A app.tasks.run_commands worker --loglevel=info
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONPATH=/app
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis

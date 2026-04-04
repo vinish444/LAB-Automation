@@ -1,0 +1,59 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: netauto-redis
+    ports:
+      - "6379:6379"
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: netauto-api
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    command: ["/app/docker/api-start.sh"]
+    ports:
+      - "8000:8000"
+    secrets:
+      - vault_role_id
+      - vault_secret_id
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: netauto-worker
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    command: ["/app/docker/celery-start.sh"]
+    secrets:
+      - vault_role_id
+      - vault_secret_id
+
+  vault:
+    image: hashicorp/vault:1.18
+    container_name: netauto-vault
+    profiles: ["dev-vault"]
+    cap_add:
+      - IPC_LOCK
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: root
+      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
+    ports:
+      - "8200:8200"
+    command: ["vault", "server", "-dev"]
+
+secrets:
+  vault_role_id:
+    file: ./secrets/vault_role_id
+  vault_secret_id:
+    file: ./secrets/vault_secret_id

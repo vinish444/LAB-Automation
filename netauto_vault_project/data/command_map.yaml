@@ -1,0 +1,11 @@
+intents:
+  interface_status:
+    cisco_ios: show ip interface brief
+    cisco_nxos: show ip interface brief
+    arista_eos: show ip interface brief
+    juniper_junos: show interfaces terse
+  version:
+    cisco_ios: show version
+    cisco_nxos: show version
+    arista_eos: show version
+    juniper_junos: show version

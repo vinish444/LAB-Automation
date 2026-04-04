@@ -1,0 +1,6 @@
+Value INTERFACE (\S+)
+Value IP_ADDRESS (\S+)
+Value STATUS (protocol-up/link-up/admin-up|protocol-down/link-down/admin-down|\S+)
+
+Start
+  ^${INTERFACE}\s+${IP_ADDRESS}\s+\S+\s+${STATUS} -> Record

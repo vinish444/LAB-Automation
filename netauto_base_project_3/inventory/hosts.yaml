@@ -1,0 +1,14 @@
+---
+R1:
+  hostname: 192.0.2.11
+  platform: cisco_ios
+  groups:
+    - lab
+    - core
+
+R2:
+  hostname: 192.0.2.12
+  platform: cisco_nxos
+  groups:
+    - lab
+    - edge

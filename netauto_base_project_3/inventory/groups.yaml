@@ -1,0 +1,12 @@
+---
+lab:
+  data:
+    site: local-lab
+
+core:
+  data:
+    role: core
+
+edge:
+  data:
+    role: edge

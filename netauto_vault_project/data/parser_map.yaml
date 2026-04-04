@@ -1,0 +1,28 @@
+platforms:
+  cisco_ios:
+    show version:
+      parser: genie
+    show ip interface brief:
+      parser: textfsm
+      template: cisco_ios_show_ip_interface_brief.textfsm
+  cisco_nxos:
+    show version:
+      parser: raw
+    show ip interface brief:
+      parser: textfsm
+      template: cisco_nxos_show_ip_interface_brief.textfsm
+  arista_eos:
+    show version:
+      parser: raw
+    show ip interface brief:
+      parser: textfsm
+      template: arista_eos_show_ip_interface_brief.textfsm
+  juniper_junos:
+    show version:
+      parser: raw
+    show interfaces terse:
+      parser: ttp
+      template: juniper_show_interfaces_terse.ttp
+
+defaults:
+  fallback_parser: raw

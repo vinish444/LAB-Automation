@@ -1,0 +1,10 @@
+---
+lab:
+  username: admin
+  password: admin
+  connection_options:
+    netmiko:
+      extras:
+        timeout: 30
+cisco: {}
+nxos: {}
