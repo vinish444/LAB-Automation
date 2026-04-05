@@ -6,12 +6,12 @@ services:
     image: hashicorp/vault:1.15
     container_name: vault-agent
     extra_hosts:
-      - "host.docker.internal:host-gateway"   # ✅ FIX for Linux
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./agent/vault-agent.hcl:/vault/config.hcl
       - ./agent/template.ctmpl:/vault/template/template.ctmpl
-      - ./bootstrap:/vault/bootstrap          # ✅ role_id & secret_id here
-      - shared:/shared
+      - ./bootstrap:/vault/bootstrap
+      - ./shared:/shared          # ✅ FIX (local folder, NOT docker volume)
     environment:
       VAULT_ADDR: http://host.docker.internal:8200
     cap_add:
@@ -24,7 +24,8 @@ services:
     depends_on:
       - vault-agent
     volumes:
-      - shared:/shared
+      - ./shared:/shared          # ✅ FIX
 
-volumes:
-  shared:
+# ❌ REMOVE THIS ENTIRE SECTION
+# volumes:
+#   shared:
