@@ -15,9 +15,15 @@ auto_auth {
 
   sink "file" {
     config = {
-      path = "/shared/vault-token"   # ✅ shared so app can use
+      path = "/shared/vault-token"
     }
   }
+}
+
+# 🔥 THIS CREATES YOUR JSON FILE
+template {
+  source      = "/vault/template/template.ctmpl"
+  destination = "/vault/secrets/device.json"
 }
 
 listener "tcp" {

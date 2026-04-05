@@ -11,7 +11,8 @@ services:
       - ./agent/vault-agent.hcl:/vault/config.hcl
       - ./agent/template.ctmpl:/vault/template/template.ctmpl
       - ./bootstrap:/vault/bootstrap
-      - ./shared:/shared          # ✅ FIX (local folder, NOT docker volume)
+      - ./shared:/shared
+      - ./secrets:/vault/secrets        # ✅ NEW
     environment:
       VAULT_ADDR: http://host.docker.internal:8200
     cap_add:
@@ -24,8 +25,5 @@ services:
     depends_on:
       - vault-agent
     volumes:
-      - ./shared:/shared          # ✅ FIX
-
-# ❌ REMOVE THIS ENTIRE SECTION
-# volumes:
-#   shared:
+      - ./shared:/shared
+      - ./secrets:/vault/secrets        # ✅ NEW
