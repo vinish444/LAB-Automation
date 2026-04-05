@@ -1,7 +1,7 @@
 pid_file = "/tmp/vault-agent.pid"
 
 vault {
-  address = "http://vault:8200"
+  address = "http://host.docker.internal:8200"
 }
 
 auto_auth {
@@ -15,7 +15,7 @@ auto_auth {
 
   sink "file" {
     config = {
-      path = "/tmp/vault-token"
+      path = "/shared/vault-token"   # ✅ shared so app can use
     }
   }
 }
