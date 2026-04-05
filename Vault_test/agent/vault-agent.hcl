@@ -7,10 +7,9 @@ vault {
 auto_auth {
   method "approle" {
     mount_path = "auth/approle"
-
     config = {
-      role_id_file_path   = "/bootstrap/role_id"
-      secret_id_file_path = "/bootstrap/secret_id"
+      role_id_file_path   = "/vault/bootstrap/role_id"
+      secret_id_file_path = "/vault/bootstrap/secret_id"
     }
   }
 
