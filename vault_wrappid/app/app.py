@@ -1,10 +1,17 @@
+import json
+import time
+import os
 
-import json, time
+FILE = "/vault/secrets/device.json"
 
-while True:
-    try:
-        with open("/vault/secrets/device.json") as f:
-            print("Secrets:", json.load(f))
-    except Exception as e:
-        print("Waiting...", e)
-    time.sleep(5)
+print("App started...")
+
+while not os.path.exists(FILE) or os.path.getsize(FILE) == 0:
+    print("Waiting for secret file...")
+    time.sleep(1)
+
+with open(FILE) as f:
+    data = json.load(f)
+
+print("Secrets:")
+print(data)
