@@ -11,7 +11,7 @@ services:
     volumes:
       - ./vault-agent:/vault-agent
       - secrets:/vault/secrets
-    # ❌ REMOVE command line
+    command: sh /vault-agent/entrypoint.sh   # ✅ correct
 
   app:
     build:
