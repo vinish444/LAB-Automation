@@ -11,7 +11,7 @@ services:
     volumes:
       - ./vault-agent:/vault-agent
       - secrets:/vault/secrets
-    command: sh /vault-agent/entrypoint.sh   # 🔥 FIX (no chmod needed)
+    # ❌ REMOVE command line
 
   app:
     build:
