@@ -1,0 +1,6 @@
+
+{{ with secret "secret/data/myapp" }}
+{
+  "data": {{ .Data.data | toJSON }}
+}
+{{ end }}

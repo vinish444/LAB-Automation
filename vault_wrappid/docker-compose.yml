@@ -1,0 +1,26 @@
+
+version: "3.8"
+
+services:
+  vault-agent:
+    build:
+      context: .
+      dockerfile: vault-agent/Dockerfile
+    environment:
+      - ROLE_ID=${ROLE_ID}
+      - WRAP_TOKEN=${WRAP_TOKEN}
+    volumes:
+      - ./vault-agent:/vault-agent
+      - secrets:/vault/secrets
+
+  app:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    depends_on:
+      - vault-agent
+    volumes:
+      - secrets:/vault/secrets
+
+volumes:
+  secrets:
