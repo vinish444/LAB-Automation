@@ -8,12 +8,13 @@ services:
     environment:
       ROLE_ID: ${ROLE_ID}
       WRAP_TOKEN: ${WRAP_TOKEN}
-      VAULT_ADDR: http://vault:8200   # ✅ use existing container
+      VAULT_ADDR: http://host.docker.internal:8200
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./vault-agent:/vault-agent
       - secrets:/vault/secrets
     command: ["sh", "/vault-agent/entrypoint.sh"]
-    restart: unless-stopped
 
   app:
     build:
@@ -23,7 +24,6 @@ services:
       - vault-agent
     volumes:
       - secrets:/vault/secrets
-    restart: unless-stopped
 
 volumes:
   secrets:
