@@ -1,8 +1,7 @@
-
 auto_auth {
   method "approle" {
     config = {
-      role_id_file_path = "/tmp/role_id"
+      role_id_file_path   = "/tmp/role_id"
       secret_id_file_path = "/tmp/secret_id"
     }
   }

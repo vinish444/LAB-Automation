@@ -1,6 +1,6 @@
-
-{{ with secret "secret/data/myapp" }}
+{{- with secret "secret/data/device" -}}
 {
-  "data": {{ .Data.data | toJSON }}
+  "username": "{{ .Data.data.username }}",
+  "password": "{{ .Data.data.password }}"
 }
-{{ end }}
+{{- end }}
