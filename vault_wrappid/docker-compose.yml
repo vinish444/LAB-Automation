@@ -6,12 +6,13 @@ services:
       context: .
       dockerfile: vault-agent/Dockerfile
     environment:
-      - ROLE_ID=${ROLE_ID}
-      - WRAP_TOKEN=${WRAP_TOKEN}
+      ROLE_ID: ${ROLE_ID}
+      WRAP_TOKEN: ${WRAP_TOKEN}
     volumes:
       - ./vault-agent:/vault-agent
       - secrets:/vault/secrets
-    command: sh /vault-agent/entrypoint.sh   # ✅ correct
+    command: ["sh", "/vault-agent/entrypoint.sh"]   # ✅ no permission issue
+    restart: unless-stopped
 
   app:
     build:
@@ -21,6 +22,7 @@ services:
       - vault-agent
     volumes:
       - secrets:/vault/secrets
+    restart: unless-stopped
 
 volumes:
   secrets:
